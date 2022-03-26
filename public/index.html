@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      @media only screen and (min-width: 415px) {
+        header {
+          padding: 0px 16px;
+        }
+      }
+    
+      @media only screen and (max-width: 360px) {
+        header .title {
+          font-size: 22px;
+          letter-spacing: 0.1rem;
+        }
+      }
+      @font-face {
+        font-family: 'nyt-karnakcondensed';
+        src: url('./fonts/karnakcondensed-normal-700.woff2');
+        font-weight: 700;
+        font-style: normal;
+      }
+      
+        </style>
+    <link rel="stylesheet" href="./index.css"/>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Wordle Lite</div>
+    </div>
+    <div id="game">
+      <div class="board-container">
+        <div class="game-board"></div>
+      </div>
+      <div id="game-keyboard">
+        <div class="keyboard">
+          <div class="keyboard-row">
+              <button class="button" data-key="q">q</button>
+              <button class="button" data-key="w">w</button>
+              <button class="button" data-key="e">e</button>
+              <button class="button" data-key="r">r</button>
+              <button class="button" data-key="t">t</button>
+              <button class="button" data-key="y">y</button>
+              <button class="button" data-key="u">u</button>
+              <button class="button" data-key="i">i</button>
+              <button class="button" data-key="o">o</button>
+              <button class="button" data-key="p">p</button>
+          </div>
+          <div class="keyboard-row">
+            <div class="spacer half"></div>
+            <button class="button" data-key="a">a</button>
+            <button class="button" data-key="s">s</button>
+            <button class="button" data-key="d">d</button>
+            <button class="button" data-key="f">f</button>
+            <button class="button" data-key="g">g</button>
+            <button class="button" data-key="h">h</button>
+            <button class="button" data-key="j">j</button>
+            <button class="button" data-key="k">k</button>
+            <button class="button" data-key="l">l</button>
+            <div class="spacer half"></div>
+        </div>
+        <div class="keyboard-row">
+          <button class="button one-and-half" data-key="Enter">enter</button>
+          <button class="button" data-key="z">z</button>
+          <button class="button" data-key="x">x</button>
+          <button class="button" data-key="c">c</button>
+          <button class="button" data-key="v">v</button>
+          <button class="button" data-key="b">b</button>
+          <button class="button" data-key="n">n</button>
+          <button class="button" data-key="m">m</button>
+          <button class="button one-and-half" data-key="Backspace">
+            <img src="assets/backspace.svg" />
+          </button>
+      </div>
+        </div>
+      </div>
+    </div>
+    <div class="game-toaster dsp-none"></div>
+    <script src="./static/bundle/script.js" type="module"></script>
+</body>
+</html>

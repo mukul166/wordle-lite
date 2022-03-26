@@ -1,0 +1,252 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    --header-height: 50px;
+    --keyboard-height: 200px;
+    --game-max-width: 500px;
+    --white: #ffffff;
+    --black: #121213;
+    --gray: #818384;
+    --border: #3a3a3c;
+    --game-board-height: 420px;
+    --game-board-width: 350px;
+    --keyboard-height: 200px;
+    --green: #6aa64;
+    --key-correct: #538d4e;
+    --key-present: #c9b458;
+    --key-absent: #3a3a3c;
+
+}
+body{
+    margin: 0;
+    background-color: var(--black);
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    color: var(--white);
+    padding: 0 16px;
+    height: var(--header-height);
+}
+.title{
+    font-family: 'nyt-karnakcondensed';
+    font-weight: 700;
+    font-size: 37px;
+    line-height: 100%;
+    letter-spacing: 0.01em;
+    text-align: center;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+#game {
+    width: 100%;
+    max-width: var(--game-max-width);
+    height: calc(100% - var(--header-height));
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-container{
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+.game-board {
+    height: var(--game-board-height);
+    width: var(--game-board-width);
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+
+}
+.tile {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: bold;
+    vertical-align: middle;
+    box-sizing: border-box;
+    color: var(--white);
+    text-transform: uppercase;
+    user-select: none;
+}
+.tile-empty {
+    border: 2px solid var(--border);
+}
+#game-keyboard{
+    height: var(--keyboard-height);
+}
+.keyboard{
+    margin: 0 8px;
+    user-select: none;
+}
+.keyboard-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    touch-action: manipulation;
+    margin: 0 auto 8px;
+}
+.button {
+    font-family: inherit;
+    font-weight: bold;
+    border: 0;
+    padding: 0;
+    margin: 0 6px 0 0;
+    height: 58px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--gray);
+    color: var(--white);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.3);
+}
+.button:focus{
+    outline: none;
+}
+.button.fade{
+    transition: background-color 0.1s ease color 0.1s ease;
+}
+.button:last-of-type{
+    margin: 0;
+}
+.half{
+    flex: 0.5;
+}
+.one{
+    flex: 1;
+}
+.one-and-half{
+    flex: 1.5;
+    font-size: 12px;
+}
+.two{
+    flex: 2;
+}
+.button[data-state='correct']{
+    background-color: var(--key-correct);
+    color: var(--white);
+}
+.button[data-state='present']{
+    background-color: var(--key-present);
+    color: var(--white);
+}
+.button[data-state='absent']{
+    background-color: var(--key-absent);
+    color: var(--white);
+}
+.game-toaster{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    pointer-events: none;
+    width: fit-content;
+    background-color: var(--white);
+    color: var(--black);
+    padding: 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.dsp-none{
+    display: none;
+}
+.animated {
+	animation-duration: 0.5s;
+	animation-fill-mode: backwards;
+}
+@keyframes shake {
+	from,
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
+		transform: translate3d(-10px, 0, 0);
+	}
+
+	20%,
+	40%,
+	60%,
+	80% {
+		transform: translate3d(10px, 0, 0);
+	}
+}
+
+.shake {
+	animation-name: shake;
+}
+@keyframes flipInY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
+}
+
+.flipInY {
+	animation-duration: 2s;
+	animation-name: flipInY;
+	backface-visibility: visible !important;
+}
+
+.bg-correct {
+    background-color: var(--key-correct);
+}
+.bg-present {
+    background-color: var(--key-present);
+}
+.bg-absent {
+    background-color: var(--key-absent);
+}
+.pt-none{
+    pointer-events: none;
+}
