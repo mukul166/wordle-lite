@@ -27,7 +27,7 @@ body{
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border);
     color: var(--white);
@@ -175,7 +175,7 @@ body{
     font-weight: bold;
 }
 .dsp-none{
-    display: none;
+    display: none !important;
 }
 .animated {
 	animation-duration: 0.5s;
@@ -204,32 +204,16 @@ body{
 }
 
 .shake {
+    animation-duration: 0.5s;
 	animation-name: shake;
 }
 @keyframes flipInY {
-	from {
-		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-		animation-timing-function: ease-in;
-		opacity: 0;
-	}
-
-	40% {
-		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-		animation-timing-function: ease-in;
-	}
-
-	60% {
-		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-		opacity: 1;
-	}
-
-	80% {
-		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-	}
-
-	to {
-		transform: perspective(400px);
-	}
+    0% {
+        transform: rotateX(-90deg);
+    }
+    100%{
+        transform: rotateX(0deg);
+    }
 }
 
 .flipInY {
@@ -249,4 +233,95 @@ body{
 }
 .pt-none{
     pointer-events: none;
+}
+
+.info {
+    z-index: 1000;
+    background-color: var(--black);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: absolute;
+    color: var(--white);
+    flex-direction: column;
+    padding: 8px 16px;
+    letter-spacing: 0.5;
+}
+.info-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    font-weight: bold;
+}
+
+.instructions{
+    font-size: 14px;
+    color: var(--white);
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+.fs-16 {
+    font-size: 16px;
+}
+
+.border-bottom{
+    border-bottom: 1px solid var(--border);
+}
+
+.pd-x {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.pd-y {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.examples {
+    display: flex;
+    align-items: center;
+}
+.example-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+  @keyframes SlideIn {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  @keyframes SlideOut {
+    0% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+    90% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+  }
+.slideIn {
+    animation-name: SlideIn;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+}
+.slideOut{
+    animation-name: SlideOut;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
 }

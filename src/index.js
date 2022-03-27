@@ -74,8 +74,8 @@ function listenKeyboard(){
 }
 
 function handleKeyboardClick(e){
-    if(keyboardMapping[e] == undefined || loadState('is_submitted'))return;
-    const totalTiles = document.getElementsByClassName('tile');
+    if(keyboardMapping[e] == undefined)return;
+    const totalTiles = document.getElementsByClassName('word-tile');
     let firstEmptyTileIndex = -1;
     let lastNonEmptyTileIndex = -1;
     for(let i = 0; i < totalTiles.length; i++){
@@ -90,35 +90,30 @@ function handleKeyboardClick(e){
             break;
         }
     }
-    console.log(e, firstEmptyTileIndex, lastNonEmptyTileIndex, trialNumber);
     switch (e) {
         case 'Enter':
-            console.log(currentWord, trialNumber, allWordsWithFiveLetter.includes(currentWord));
-            const tiles = document.getElementsByClassName('tile');
-            if(allWordsWithFiveLetter.includes(currentWord) === false){
-                addShaker(trialNumber, tiles, 'Not in word list')
+            const tiles = document.getElementsByClassName('word-tile');
+            if(currentWord.length !== 5){
+                addShaker(trialNumber, tiles, 'Not enough words');
             }
-            else if(tiles[(trialNumber)*5 + 4].innerHTML === ''){
-                addShaker(trialNumber, tiles, 'Not Enough Words');
+            else if(allWordsWithFiveLetter.includes(currentWord) === false){
+                addShaker(trialNumber, tiles, 'Not in word list')
             }
             else {
                 const keyboard = document.getElementsByClassName('button');
                 for(let i = trialNumber * 5; i <= trialNumber * 5 + 4; i++){
                     if(currentWord[i - trialNumber * 5] ===  selectedWord[i - trialNumber * 5]){
                         tiles[i].classList.add('bg-correct');
-                        tiles[i].classList.add('animated');
                         tiles[i].classList.add('flipInY');
                         updateKeyboardState(currentWord[i - trialNumber * 5], 'correct', keyboard);
                     }
                     else if(isletterPresent(currentWord[i - trialNumber * 5], selectedWord)){
                         tiles[i].classList.add('bg-present');
-                        tiles[i].classList.add('animated');
                         tiles[i].classList.add('flipInY');
                         updateKeyboardState(currentWord[ i - trialNumber * 5], 'present', keyboard);
                     }
                     else {
                         tiles[i].classList.add('bg-absent');
-                        tiles[i].classList.add('animated');
                         tiles[i].classList.add('flipInY');
                         updateKeyboardState(currentWord[ i - trialNumber * 5], 'absent', keyboard);
                     }
@@ -132,10 +127,14 @@ function handleKeyboardClick(e){
                     document.body.classList.add('pt-none');
                     showToast(selectedWord.toUpperCase());
                 }
-                console.log('HERE COMING', currentWord);
                 currentWord = '';
                 trialNumber++;
             }
+            setTimeout(() => {
+                for(let i = 0; i <= tiles.length ; i++){
+                    tiles[i].classList.remove('flipInY');
+                }
+                },1000);
             break;
         case 'Backspace':
             if(lastNonEmptyTileIndex != -1 && (trialNumber <= lastNonEmptyTileIndex / 5)){
@@ -170,26 +169,25 @@ const addShaker = function(rowNumber, tiles, message){
     showToast(message);
     const gameBoard = document.getElementsByClassName('game-board');
     const toastElement = document.getElementsByClassName('game-toaster');
-    gameBoard[0].classList.add('animated');
-    gameBoard[0].classList.add('shake');
+    // toastElement[0].classList.add('animated');
+    // toastElement[0].classList.add('shake');
     for(let i = rowNumber * 5; i < rowNumber * 5 + 5; i++){
-        tiles[i].classList.add('animated');
         tiles[i].classList.add('shake');
     }
     setTimeout(() => {
         for(let i = rowNumber * 5; i < rowNumber * 5 + 5; i++){
-            tiles[i].classList.remove('animated');
             tiles[i].classList.remove('shake');
         }
         toastElement[0].classList.add('dsp-none');
         toastElement[0].innerHTML = '';
+        // gameBoard[0].classList.remove('animated');
+        // gameBoard[0].classList.remove('shake');
     },2000);
 } 
 
 function updateKeyboardState(chr, dataState, keys){
     for(let i = 0; i < keys.length; i++){
         if(keys[i].innerHTML !== chr)continue;
-        console.log(keys[i].getAttribute('data-state'));
         if(!keys[i].getAttribute('data-state')){
             keys[i].setAttribute('data-state', dataState);
         }
@@ -202,6 +200,23 @@ function showToast(message){
     toastElement[0].innerHTML = message;
 }
 
+function initEventListenrs(){
+    const infoModal = document.getElementById('info-modal');
+    const gameModal = document.getElementById('game-modal');
+    document.getElementById('info').addEventListener('click', () => {
+        gameModal.classList.add('dsp-none');
+        infoModal.classList.remove('dsp-none');
+        infoModal.classList.add('slideIn');
+    });
+    document.getElementById('info-modal-cross').addEventListener('click', () => {
+        infoModal.classList.add('dsp-none');
+        gameModal.classList.remove('dsp-none');
+        gameModal.classList.add('slideIn');
+        infoModal.classList.remove('slideIn');
+    })
+}
+
+initEventListenrs();
 initGameBoard();
 listenKeyboard();
 

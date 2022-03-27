@@ -29,8 +29,10 @@
     <link rel="stylesheet" href="./index.css"/>
 </head>
 <body>
-    <div class="header">
+    <div id="game-modal"><div class="header">
+      <img src="./assets/Info.svg" id="info" />
         <div class="title">Wordle Lite</div>
+        <img src="./assets/statics.svg" id="statics" />
     </div>
     <div id="game">
       <div class="board-container">
@@ -78,8 +80,54 @@
       </div>
         </div>
       </div>
-    </div>
+    </div></div>
     <div class="game-toaster dsp-none"></div>
-    <script src="./static/bundle/script.js" type="module"></script>
+    <div id="info-modal" class="info dsp-none">
+      <div class="info-header">
+        <div></div>
+        <div>HOW TO PLAY</div>
+        <img id="info-modal-cross" src="./assets/cross.svg" height="24" width="24"/>
+      </div>
+      <div class="instructions">
+        <p class="fs-14">Guess the <strong>WORDLE</strong> in six tries</p>
+        <p class="fs-14">Each guess must be a valid five-letter word. Hit the enter button to submit.</p>
+        <p class="fs-14">After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+        <div class="border-bottom"></div>
+      <div class="example-container">
+        <p ><strong class="fs-14">Examples</strong></p>
+        <div class="examples">
+          <div class="row">
+            <div class="tile tile-empty pd-x pd-y bg-correct flipInY">L</div>
+            <div class="tile tile-empty pd-x pd-y">A</div>
+            <div class="tile tile-empty pd-x pd-y">U</div>
+            <div class="tile tile-empty pd-x pd-y">G</div>
+            <div class="tile tile-empty pd-x pd-y">H</div>
+        </div>
+        </div>
+        <p class="fs-14">The letter <strong>L</strong> is in the word and in the correct spot.</p>
+        <div class="examples">
+          <div class="row">
+            <div class="tile tile-empty pd-x pd-y">P</div>
+            <div class="tile tile-empty pd-x pd-y bg-present flipInY">I</div>
+            <div class="tile tile-empty pd-x pd-y">L</div>
+            <div class="tile tile-empty pd-x pd-y">L</div>
+            <div class="tile tile-empty pd-x pd-y">S</div>
+        </div>
+        </div>
+        <p class="fs-14">The letter <strong>I</strong> is in the word but in the wrong spot.</p>
+        <div class="examples">
+          <div class="row">
+            <div class="tile tile-empty pd-x pd-y bg-absent flipInY">Z</div>
+            <div class="tile tile-empty pd-x pd-y">A</div>
+            <div class="tile tile-empty pd-x pd-y">U</div>
+            <div class="tile tile-empty pd-x pd-y">G</div>
+            <div class="tile tile-empty pd-x pd-y">H</div>
+        </div>
+        </div>
+        <p class="fs-14">The letter <strong>Z</strong> is not used in any spot.</p>
+        <div>
+    </div>
+    <!-- <script src="./static/bundle/script.js" type="module"></script> -->
+    <script src="./../src/index.js" type="module"></script>
 </body>
 </html>
